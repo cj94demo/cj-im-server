@@ -15,5 +15,4 @@ public interface DistributedLockFactory {
      */
     DistributedLock getDistributedLock(String key);
 
-
 }
