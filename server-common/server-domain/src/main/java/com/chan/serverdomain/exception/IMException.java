@@ -14,8 +14,8 @@ public class IMException extends RuntimeException {
         super(message);
     }
 
-    public IMException(Integer code, String messgae) {
-        super(messgae);
+    public IMException(Integer code, String message) {
+        super(message);
         this.code = code;
     }
 
