@@ -42,7 +42,7 @@ public class RocketMQMessageSenderService implements MessageSenderService {
         return rocketMQTemplate.sendMessageInTransaction(message.getDestination(), this.getMessage(message), arg);
     }
 
-    //构建ROcketMQ发送的消息
+    //构建RocketMQ发送的消息
     private Message<String> getMessage(TopicMessage message) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(IMConstants.MSG_KEY, message);

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: server-mq
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: im-server-group
+
+message:
+  mq:
+    type: rocketmq
+    event:
+      type: rocketmq
+
