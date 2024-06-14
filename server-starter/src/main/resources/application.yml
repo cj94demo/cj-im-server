@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: im-server
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: im-server-group
+
+message:
+  mq:
+    type: rocketmq
+    event:
+      type: rocketmq
+
+distribute:
+  lock:
+    type: redisson
+redis:
+  arrange:
+    type: single
+
+tcpsocket:
+  enable: true
+  port: 8879
+
+websocket:
+  enable: true
+  port: 8878

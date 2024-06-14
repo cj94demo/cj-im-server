@@ -43,7 +43,7 @@ public class IMServerRunner implements CommandLineRunner {
 
     @PreDestroy
     public void destroy() {
-        if (!CollectionUtil.isEmpty(imNettyServers)) {
+        if (CollectionUtil.isNotEmpty(imNettyServers)) {
             imNettyServers.forEach(IMNettyServer::shutdown);
         }
     }
