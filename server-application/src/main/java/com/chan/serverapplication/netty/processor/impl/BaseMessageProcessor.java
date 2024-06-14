@@ -22,8 +22,7 @@ public class BaseMessageProcessor {
     protected void sendPrivateMessageResult(IMReceiveInfo receiveInfo, IMSendCode sendCode) {
         if (receiveInfo.getSendResult()) {
             IMSendResult<?> result = new IMSendResult<>(receiveInfo.getSender(), receiveInfo.getReceivers().get(0), sendCode.getCode(), receiveInfo.getData());
-            String sendKey = IMConstants.IM_RESULT_PRIVATE_QUEUE;
-            result.setDestination(sendKey);
+            result.setDestination(IMConstants.IM_RESULT_PRIVATE_QUEUE);
             messageSenderService.send(result);
         }
     }
