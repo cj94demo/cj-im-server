@@ -11,6 +11,14 @@ public class IMSessionInfo {
     private Long userId;
     private Integer terminal;
 
+    public IMSessionInfo() {
+    }
+
+    public IMSessionInfo(Long userId, Integer terminal) {
+        this.userId = userId;
+        this.terminal = terminal;
+    }
+
     public Long getUserId() {
         return userId;
     }
