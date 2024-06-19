@@ -6,13 +6,9 @@
         <groupId>com.chan</groupId>
         <artifactId>server-common</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.chan</groupId>
     <artifactId>server-cache</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>server-cache</name>
-    <description>server-cache</description>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -38,11 +34,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.7.17</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>2.7.17</version>
         </dependency>
 
         <dependency>
@@ -65,11 +63,6 @@
             <artifactId>server-domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
     </dependencies>
-
 
 </project>

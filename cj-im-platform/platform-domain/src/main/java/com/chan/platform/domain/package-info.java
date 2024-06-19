@@ -1,1 +1,0 @@
-package com.chan.platform.domain;

@@ -4,31 +4,27 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.chan</groupId>
-        <artifactId>cj-im-server</artifactId>
+        <artifactId>platform-user</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>server-application</artifactId>
+    <artifactId>platform-user-application</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>server-application</name>
-    <description>server-application</description>
+    <name>platform-user-application</name>
+    <description>platform-user-application</description>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.chan</groupId>
-            <artifactId>server-infrastructure</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-collections</artifactId>
-                    <groupId>commons-collections</groupId>
-                </exclusion>
-            </exclusions>
+            <artifactId>platform-user-infrastructure</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

@@ -26,11 +26,8 @@
         <mysql.version>5.1.46</mysql.version>
     </properties>
     <modules>
-        <module>platform-application</module>
-        <module>platform-domain</module>
-        <module>platform-infrastructure</module>
-        <module>platform-interfaces</module>
-        <module>platform-starter</module>
+        <module>platform-common</module>
+        <module>platform-user</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -103,14 +100,14 @@
                 <version>1.6.1</version>
             </dependency>
             <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-mapper-asl</artifactId>
-                <version>1.9.13</version>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.17.0</version>
             </dependency>
             <dependency>
-                <groupId>javax.interceptor</groupId>
-                <artifactId>javax.interceptor-api</artifactId>
-                <version>1.2</version>
+                <groupId>jakarta.interceptor</groupId>
+                <artifactId>jakarta.interceptor-api</artifactId>
+                <version>1.2.5</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security</groupId>

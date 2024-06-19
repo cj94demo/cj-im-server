@@ -6,13 +6,9 @@
         <groupId>com.chan</groupId>
         <artifactId>cj-im-server</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.chan</groupId>
     <artifactId>server-infrastructure</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>server-infrastructure</name>
-    <description>server-infrastructure</description>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -23,7 +19,12 @@
     <dependencies>
         <dependency>
             <groupId>com.chan</groupId>
-            <artifactId>server-domain</artifactId>
+            <artifactId>server-mq</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.chan</groupId>
+            <artifactId>server-cache</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

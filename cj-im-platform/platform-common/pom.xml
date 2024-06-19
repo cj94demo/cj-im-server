@@ -6,7 +6,6 @@
         <groupId>com.chan</groupId>
         <artifactId>cj-im-platform</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>platform-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -31,6 +30,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -121,11 +124,6 @@
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>${thumbnailator.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.chan</groupId>
-            <artifactId>platform-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.chan</groupId>

@@ -4,30 +4,24 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.chan</groupId>
-        <artifactId>cj-im-server</artifactId>
+        <artifactId>cj-im-sdk</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>server-interfaces</artifactId>
+    <artifactId>sdk-application</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>com.chan</groupId>
-            <artifactId>server-application</artifactId>
+            <artifactId>sdk-infrastructure</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

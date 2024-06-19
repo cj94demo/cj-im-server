@@ -13,6 +13,7 @@
         <module>server-domain</module>
         <module>server-mq</module>
     </modules>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -101,14 +102,14 @@
                 <version>1.6.1</version>
             </dependency>
             <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-mapper-asl</artifactId>
-                <version>1.9.13</version>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.17.0</version>
             </dependency>
             <dependency>
-                <groupId>javax.interceptor</groupId>
-                <artifactId>javax.interceptor-api</artifactId>
-                <version>1.2</version>
+                <groupId>jakarta.interceptor</groupId>
+                <artifactId>jakarta.interceptor-api</artifactId>
+                <version>1.2.5</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security</groupId>
@@ -139,9 +140,7 @@
                 <artifactId>cola-common</artifactId>
                 <version>${cola.version}</version>
             </dependency>
-
         </dependencies>
-
     </dependencyManagement>
 
     <build>
@@ -178,20 +177,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <!--这里的id与settings.xml中的servers节点配置的用户ID一直，这样才能使用配置的用户去上传到maven私有仓库 -->
-            <!--此仓库对应的为RELEASE版本的jar-->
-            <id>binghe</id>
-            <url>http://192.168.106.102:8081/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <!--这里的id与settings.xml中的servers节点配置的用户ID一直，这样才能使用配置的用户去上传到maven私有仓库 -->
-            <!--此仓库对应的为SNAPSHOT版本的jar-->
-            <id>binghe</id>
-            <url>http://192.168.106.102:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>

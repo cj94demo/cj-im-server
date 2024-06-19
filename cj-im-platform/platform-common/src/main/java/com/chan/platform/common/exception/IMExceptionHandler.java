@@ -1,8 +1,8 @@
 package com.chan.platform.common.exception;
 
+import com.chan.platform.common.model.enums.HttpCode;
 import com.chan.platform.common.response.ResponseMessage;
 import com.chan.platform.common.response.ResponseMessageFactory;
-import com.chan.platform.domain.model.enums.HttpCode;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

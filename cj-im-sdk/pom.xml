@@ -6,11 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>cj-im-sdk-application</module>
-        <module>cj-im-sdk-core</module>
-        <module>cj-im-sdk-domain</module>
-        <module>cj-im-sdk-infrastructure</module>
-        <module>cj-im-sdk-interfaces</module>
+        <module>sdk-application</module>
+        <module>sdk-core</module>
+        <module>sdk-domain</module>
+        <module>sdk-infrastructure</module>
+        <module>sdk-interfaces</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -74,14 +74,14 @@
                 <version>1.6.1</version>
             </dependency>
             <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-mapper-asl</artifactId>
-                <version>1.9.13</version>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.17.0</version>
             </dependency>
             <dependency>
-                <groupId>javax.interceptor</groupId>
-                <artifactId>javax.interceptor-api</artifactId>
-                <version>1.2</version>
+                <groupId>jakarta.interceptor</groupId>
+                <artifactId>jakarta.interceptor-api</artifactId>
+                <version>1.2.5</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security</groupId>
