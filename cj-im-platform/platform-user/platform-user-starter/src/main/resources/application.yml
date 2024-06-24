@@ -1,0 +1,90 @@
+#这是配置服务的端口
+server:
+  port: 8888
+#配置项目的数据源
+spring:
+  application:
+    name: platform-user-starter
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bh_im?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+mybatis-plus:
+  configuration:
+    # 是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN（下划线命名） 到经典 Java 属性名 aColumn（驼峰命名） 的类似映射
+    map-underscore-to-camel-case: false
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # mapper
+  mapper-locations:
+    # *.xml的具体路径
+    - classpath*:mapper/*.xml
+minio:
+  endpoint:  #内网地址
+  public:   #外网访问地址
+  accessKey:
+  secretKey:
+  bucketName:
+  imagePath:
+  filePath:
+
+webrtc:
+  iceServers:
+    - urls: stun:stun.l.google.com:19302
+
+jwt:
+  accessToken:
+    expireIn: 1800 #半个小时
+    secret: cj123
+  refreshToken:
+    expireIn: 604800 #7天
+    secret: cj123456
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: im-plate-group
+
+distributed:
+  cache:
+    type: redis
+
+message:
+  mq:
+    type: rocketmq
+#logging:
+#  config: classpath:logback-prod.xml
+
+
+cj:
+  im:
+    rule:
+      authRule:
+        order: 10
+      xssRule:
+        enabled: true
+        order: 0
+      ipRule:
+        enabled: true
+        order: 1
+        windowsSize: 50
+        windowPeriod: 1000
+      pathRule:
+        enabled: true
+        order: 1
+        windowsSize: 50
+        windowPeriod: 1000

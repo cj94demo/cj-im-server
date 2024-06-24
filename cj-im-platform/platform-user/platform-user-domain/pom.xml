@@ -23,8 +23,25 @@
     <dependencies>
         <dependency>
             <groupId>com.chan</groupId>
-            <artifactId>platform-common</artifactId>
-            <version>${project.version}</version>
+            <artifactId>platform-dubbo</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>cola-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>cola-common</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.chan</groupId>
+            <artifactId>sdk-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

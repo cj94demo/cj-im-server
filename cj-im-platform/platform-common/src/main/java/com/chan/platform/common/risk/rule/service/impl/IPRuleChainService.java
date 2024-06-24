@@ -25,20 +25,20 @@ import javax.servlet.http.HttpServletRequest;
 public class IPRuleChainService extends BaseRuleChainService implements RuleChainService {
     private final Logger logger = LoggerFactory.getLogger(XssRuleChainService.class);
 
-    @Value("${bh.im.rule.ipRule.enabled}")
+    @Value("${cj.im.rule.ipRule.enabled}")
     private Boolean ipRuleEnabled;
 
-    @Value("${bh.im.rule.ipRule.order}")
+    @Value("${cj.im.rule.ipRule.order}")
     private Integer ipRuleOrder;
     /**
      * 滑动窗口大小
      */
-    @Value("${bh.im.rule.ipRule.windowsSize}")
+    @Value("${cj.im.rule.ipRule.windowsSize}")
     private Integer windowsSize;
     /**
      * 限流窗口的周期
      */
-    @Value("${bh.im.rule.ipRule.windowPeriod}")
+    @Value("${cj.im.rule.ipRule.windowPeriod}")
     private Long windowPeriod;
 
     @Autowired

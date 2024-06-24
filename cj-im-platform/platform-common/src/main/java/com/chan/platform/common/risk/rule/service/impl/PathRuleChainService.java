@@ -26,20 +26,20 @@ import javax.servlet.http.HttpServletRequest;
 public class PathRuleChainService extends BaseRuleChainService implements RuleChainService {
     private final Logger logger = LoggerFactory.getLogger(PathRuleChainService.class);
 
-    @Value("${bh.im.rule.pathRule.enabled}")
+    @Value("${cj.im.rule.pathRule.enabled}")
     private Boolean pathRuleEnabled;
 
-    @Value("${bh.im.rule.pathRule.order}")
+    @Value("${cj.im.rule.pathRule.order}")
     private Integer pathRuleOrder;
     /**
      * 滑动窗口大小
      */
-    @Value("${bh.im.rule.pathRule.windowsSize}")
+    @Value("${cj.im.rule.pathRule.windowsSize}")
     private Integer windowsSize;
     /**
      * 限流窗口的周期
      */
-    @Value("${bh.im.rule.pathRule.windowPeriod}")
+    @Value("${cj.im.rule.pathRule.windowPeriod}")
     private Long windowPeriod;
 
     @Autowired

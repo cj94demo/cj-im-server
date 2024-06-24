@@ -15,6 +15,11 @@ public class IMBaseEvent extends TopicMessage {
     public IMBaseEvent() {
     }
 
+    public IMBaseEvent(Long id, String destination) {
+        super(destination);
+        this.id = id;
+    }
+
     public IMBaseEvent(Long id) {
         this.id = id;
     }
