@@ -43,6 +43,7 @@
         <module>platform-common</module>
         <module>platform-user</module>
         <module>platform-dubbo</module>
+        <module>platform-friend</module>
     </modules>
     <dependencyManagement>
         <dependencies>

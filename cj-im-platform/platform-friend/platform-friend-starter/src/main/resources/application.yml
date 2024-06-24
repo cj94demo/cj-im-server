@@ -1,10 +1,14 @@
 #这是配置服务的端口
 server:
-  port: 8888
+  port: 10003
+  servlet:
+    context-path: /friend-server
 #配置项目的数据源
 spring:
   application:
-    name: platform-user-starter
+    name: platform-friend
+  main:
+    allow-bean-definition-overriding: true
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -15,9 +19,19 @@ spring:
     password: root
 
   redis:
+    database: 0
     host: 127.0.0.1
     port: 6379
-    database: 1
+    password:
+    timeout: 30000
+    lettuce:
+      pool:
+        enabled: true
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: 5000
+    address: redis://127.0.0.1:6379
 
   servlet:
     multipart:
@@ -29,18 +43,29 @@ spring:
       config:
         server-addr: 127.0.0.1:8848
         file-extension: json
-        namespace: cj-im-config
+        namespace: bh-im-config
         access-key: nacos
         secret-key: nacos
-        group: CJ-IM-GROUP
+        group: BH-IM-GROUP
       discovery:
         server-addr: 127.0.0.1:8848
         enabled: true
-        namespace: cj-im-config
+        namespace: bh-im-config
         access-key: nacos
         secret-key: nacos
-        group: CJ-IM-GROUP
+        group: BH-IM-GROUP
 
+dubbo:
+  application:
+    name: ${spring.application.name}
+  scan:
+    base-packages: com.chan
+  protocol:
+    name: dubbo
+    port: 20882
+  registry:
+    address: nacos://127.0.0.1:8848?register-consumer-url=true
+    register-mode: instance
 
 mybatis-plus:
   configuration:
@@ -52,13 +77,13 @@ mybatis-plus:
     # *.xml的具体路径
     - classpath*:mapper/*.xml
 minio:
-  endpoint:  #内网地址
-  public:   #外网访问地址
-  accessKey:
-  secretKey:
-  bucketName:
-  imagePath:
-  filePath:
+  endpoint: http://127.0.0.1:9001 #内网地址
+  public: http://127.0.0.1:9001  #外网访问地址
+  accessKey: cj
+  secretKey: cj123
+  bucketName: cj-im
+  imagePath: image
+  filePath: file
 
 webrtc:
   iceServers:
@@ -77,15 +102,26 @@ rocketmq:
   producer:
     group: im-plate-group
 
-distributed:
+local:
+  cache:
+    type: guava
+
+distribute:
   cache:
     type: redis
+  lock:
+    type: redisson
+
+redis:
+  arrange:
+    type: single # single or cluster
 
 message:
   mq:
-    type: rocketmq
     event:
       type: rocketmq
+    type: rocketmq
+
 #logging:
 #  config: classpath:logback-prod.xml
 
@@ -108,14 +144,3 @@ cj:
         order: 1
         windowsSize: 50
         windowPeriod: 1000
-dubbo:
-  application:
-    name: ${spring.application.name}
-  scan:
-    base-packages: com.chan
-  protocol:
-    name: dubbo
-    port: 20881
-  registry:
-    address: nacos://127.0.0.1:8848?register-consumer-url=true
-    register-mode: instance
