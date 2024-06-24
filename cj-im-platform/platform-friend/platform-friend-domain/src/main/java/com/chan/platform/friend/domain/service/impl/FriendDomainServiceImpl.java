@@ -78,7 +78,7 @@ public class FriendDomainServiceImpl extends ServiceImpl<FriendRepository, Frien
         if (result) {
             //发布领域事件
             IMFriendEvent friendEvent = new IMFriendEvent(friendCommand.getUserId(), friendCommand.getFriendId(), IMPlatformConstants.FRIEND_HANDLER_BIND, this.getTopicEvent());
-            messageEventSenderService.send(friendEvent);
+                messageEventSenderService.send(friendEvent);
         }
     }
 

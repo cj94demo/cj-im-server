@@ -53,7 +53,7 @@ public class FriendCacheServiceImpl implements FriendCacheService {
             switch (friendEvent.getHandler()) {
                 //添加好友
                 case IMPlatformConstants.FRIEND_HANDLER_BIND:
-                    this.bindFrind(friendEvent);
+                    this.bindFriend(friendEvent);
                     break;
                 //删除好友
                 case IMPlatformConstants.FRIEND_HANDLER_UNBIND:
@@ -78,7 +78,7 @@ public class FriendCacheServiceImpl implements FriendCacheService {
         String redisKey = "";
         //获取好友列表
         List<Friend> friendList = domainService.getFriendByUserId(friendEvent.getId());
-        if (!CollectionUtil.isEmpty(friendList)) {
+        if (CollectionUtil.isNotEmpty(friendList)) {
             redisKey = distributedCacheService.getKey(IMPlatformConstants.PLATFORM_REDIS_FRIEND_LIST_KEY, friendEvent.getId());
             distributedCacheService.set(redisKey, friendList, IMPlatformConstants.DEFAULT_REDIS_CACHE_EXPIRE_TIME, TimeUnit.MINUTES);
         }
@@ -99,7 +99,7 @@ public class FriendCacheServiceImpl implements FriendCacheService {
         //获取好友列表
         List<Friend> friendList = domainService.getFriendByUserId(friendEvent.getId());
         redisKey = distributedCacheService.getKey(IMPlatformConstants.PLATFORM_REDIS_FRIEND_LIST_KEY, friendEvent.getId());
-        if (!CollectionUtil.isEmpty(friendList)) {
+        if (CollectionUtil.isNotEmpty(friendList)) {
             distributedCacheService.set(redisKey, friendList, IMPlatformConstants.DEFAULT_REDIS_CACHE_EXPIRE_TIME, TimeUnit.MINUTES);
         } else {
             distributedCacheService.delete(redisKey);
@@ -109,7 +109,7 @@ public class FriendCacheServiceImpl implements FriendCacheService {
         distributedCacheService.delete(redisKey);
     }
 
-    private void bindFrind(IMFriendEvent friendEvent) {
+    private void bindFriend(IMFriendEvent friendEvent) {
         String redisKey = "";
         if (friendEvent.getFriendId() != null) {
             redisKey = distributedCacheService.getKey(IMPlatformConstants.PLATFORM_REDIS_FRIEND_SET_KEY, friendEvent.getId());
@@ -117,7 +117,7 @@ public class FriendCacheServiceImpl implements FriendCacheService {
         }
         //获取好友列表
         List<Friend> friendList = domainService.getFriendByUserId(friendEvent.getId());
-        if (!CollectionUtil.isEmpty(friendList)) {
+        if (CollectionUtil.isNotEmpty(friendList)) {
             redisKey = distributedCacheService.getKey(IMPlatformConstants.PLATFORM_REDIS_FRIEND_LIST_KEY, friendEvent.getId());
             distributedCacheService.set(redisKey, friendList, IMPlatformConstants.DEFAULT_REDIS_CACHE_EXPIRE_TIME, TimeUnit.MINUTES);
         }

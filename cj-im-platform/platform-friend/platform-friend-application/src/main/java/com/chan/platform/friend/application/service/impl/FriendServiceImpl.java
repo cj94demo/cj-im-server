@@ -39,8 +39,10 @@ public class FriendServiceImpl implements FriendService {
     private final Logger logger = LoggerFactory.getLogger(FriendServiceImpl.class);
     @Autowired
     private DistributedCacheService distributedCacheService;
+
     @Autowired
     private FriendDomainService domainService;
+
     @DubboReference(version = IMPlatformConstants.DEFAULT_DUBBO_VERSION, check = false)
     private UserDubboService userDubboService;
 
