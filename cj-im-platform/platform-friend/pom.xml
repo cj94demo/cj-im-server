@@ -6,7 +6,6 @@
         <groupId>com.chan</groupId>
         <artifactId>cj-im-platform</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>platform-friend</artifactId>
     <version>0.0.1-SNAPSHOT</version>

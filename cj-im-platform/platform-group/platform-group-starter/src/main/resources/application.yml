@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: json
+        namespace: cj-im-config
+        access-key: nacos
+        secret-key: nacos
+        group: CJ-IM-GROUP
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: cj-im-config
+        access-key: nacos
+        secret-key: nacos
+        group: CJ-IM-GROUP
+        enabled: true
+
+dubbo:
+  application:
+    name: ${spring.application.name}
+  scan:
+    base-packages: com.chan
+  protocol:
+    name: dubbo
+    port: 20883
+  registry:
+    address: nacos://127.0.0.1:8848?register-consumer-url=true
+    register-mode: instance
