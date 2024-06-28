@@ -44,6 +44,7 @@
         <module>platform-user</module>
         <module>platform-dubbo</module>
         <module>platform-friend</module>
+        <module>platform-group</module>
     </modules>
     <dependencyManagement>
         <dependencies>
