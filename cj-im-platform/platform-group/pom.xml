@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.chan</groupId>
+        <artifactId>cj-im-platform</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <artifactId>platform-group</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>platform-group</name>
+    <packaging>pom</packaging>
+    <modules>
+        <module>platform-group-application</module>
+        <module>platform-group-domain</module>
+        <module>platform-group-infrastructure</module>
+        <module>platform-group-interfaces</module>
+        <module>platform-group-starter</module>
+    </modules>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+</project>
