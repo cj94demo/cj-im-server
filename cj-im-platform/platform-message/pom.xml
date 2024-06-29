@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.chan</groupId>
+        <artifactId>cj-im-platform</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>platform-message</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>platform-message</name>
+    <description>platform-message</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>platform-message-application</module>
+        <module>platform-message-domain</module>
+        <module>platform-message-infrastructure</module>
+        <module>platform-message-interfaces</module>
+        <module>platform-message-starter</module>
+    </modules>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.compilerVersion>17</maven.compiler.compilerVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+</project>
