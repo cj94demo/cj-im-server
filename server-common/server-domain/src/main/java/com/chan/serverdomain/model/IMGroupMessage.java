@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class IMGroupMessage<T> {
     private IMUserInfo sender;
-    private List<Long> receivedIds = new LinkedList<>();
+    private List<Long> receiveIds = new LinkedList<>();
     private List<Integer> receiveTerminals = IMTerminalType.codes();
     private Boolean sendToSelf = true;
     private Boolean sendResult = true;
@@ -23,9 +23,9 @@ public class IMGroupMessage<T> {
     public IMGroupMessage() {
     }
 
-    public IMGroupMessage(IMUserInfo sender, List<Long> receivedIds, List<Integer> receiveTerminals, Boolean sendToSelf, Boolean sendResult, T data) {
+    public IMGroupMessage(IMUserInfo sender, List<Long> receiveIds, List<Integer> receiveTerminals, Boolean sendToSelf, Boolean sendResult, T data) {
         this.sender = sender;
-        this.receivedIds = receivedIds;
+        this.receiveIds = receiveIds;
         this.receiveTerminals = receiveTerminals;
         this.sendToSelf = sendToSelf;
         this.sendResult = sendResult;
@@ -40,12 +40,12 @@ public class IMGroupMessage<T> {
         this.sender = sender;
     }
 
-    public List<Long> getReceivedIds() {
-        return receivedIds;
+    public List<Long> getReceiveIds() {
+        return receiveIds;
     }
 
-    public void setReceivedIds(List<Long> receivedIds) {
-        this.receivedIds = receivedIds;
+    public void setReceiveIds(List<Long> receiveIds) {
+        this.receiveIds = receiveIds;
     }
 
     public List<Integer> getReceiveTerminals() {

@@ -39,6 +39,9 @@ public class GroupMessageVO {
     @ApiModelProperty(value = "@用户列表")
     private List<Long> atUserIds;
 
+    @ApiModelProperty(value = "@用户列表")
+    private String atUserIdsStr;
+
     @ApiModelProperty(value = " 状态")
     private Integer status;
 
@@ -49,7 +52,7 @@ public class GroupMessageVO {
     public GroupMessageVO() {
     }
 
-    public GroupMessageVO(Long id, Long groupId, Long sendId, String sendNickName, String content, Integer type, List<Long> atUserIds, Integer status, Date sendTime) {
+    public GroupMessageVO(Long id, Long groupId, Long sendId, String sendNickName, String content, Integer type, List<Long> atUserIds, String atUserIdsStr, Integer status, Date sendTime) {
         this.id = id;
         this.groupId = groupId;
         this.sendId = sendId;
@@ -57,6 +60,7 @@ public class GroupMessageVO {
         this.content = content;
         this.type = type;
         this.atUserIds = atUserIds;
+        this.atUserIdsStr = atUserIdsStr;
         this.status = status;
         this.sendTime = sendTime;
     }
@@ -115,6 +119,14 @@ public class GroupMessageVO {
 
     public void setAtUserIds(List<Long> atUserIds) {
         this.atUserIds = atUserIds;
+    }
+
+    public String getAtUserIdsStr() {
+        return atUserIdsStr;
+    }
+
+    public void setAtUserIdsStr(String atUserIdsStr) {
+        this.atUserIdsStr = atUserIdsStr;
     }
 
     public Integer getStatus() {

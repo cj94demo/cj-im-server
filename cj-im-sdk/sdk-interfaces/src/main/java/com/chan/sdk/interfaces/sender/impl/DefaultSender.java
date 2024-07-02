@@ -55,13 +55,13 @@ public class DefaultSender implements IMSender {
     private <T> void sendPrivateMessageToTargetUser(IMPrivateMessage<T> message, List<Integer> receiveTerminals) {
         receiveTerminals.forEach((receiveTerminal) -> {
             // 获取接收消息的用户的channelId
-            String redisKey = String.join(IMConstants.REDIS_KEY_SPLIT, IMConstants.IM_USER_SERVER_ID, message.getReceivedId().toString(),
+            String redisKey = String.join(IMConstants.REDIS_KEY_SPLIT, IMConstants.IM_USER_SERVER_ID, message.getReceiveId().toString(),
                     receiveTerminal.toString());
             String serverId = distributedCacheService.get(redisKey);
             // 用户在线，将消息推送到RocketMQ
             if (StrUtil.isNotBlank(serverId)) {
                 String sendKey = String.join(IMConstants.MESSAGE_KEY_SPLIT, IMConstants.IM_MESSAGE_PRIVATE_QUEUE, serverId);
-                IMReceiveInfo imReceiveInfo = new IMReceiveInfo(IMCmdType.PRIVATE_MESSAGE.getCode(), message.getSender(), Collections.singletonList(new IMUserInfo(message.getReceivedId(), receiveTerminal)),
+                IMReceiveInfo imReceiveInfo = new IMReceiveInfo(IMCmdType.PRIVATE_MESSAGE.getCode(), message.getSender(), Collections.singletonList(new IMUserInfo(message.getReceiveId(), receiveTerminal)),
                         message.getSendResult(), message.getData());
                 // 设置发送的主题
                 imReceiveInfo.setDestination(sendKey);
@@ -69,7 +69,7 @@ public class DefaultSender implements IMSender {
                 messageSenderService.send(imReceiveInfo);
             } else if (BooleanUtil.isTrue(message.getSendResult())) {
                 // 回复消息的状态
-                IMSendResult<T> result = new IMSendResult<>(message.getSender(), new IMUserInfo(message.getReceivedId(), receiveTerminal), IMSendCode.NOT_ONLINE.getCode(), message.getData());
+                IMSendResult<T> result = new IMSendResult<>(message.getSender(), new IMUserInfo(message.getReceiveId(), receiveTerminal), IMSendCode.NOT_ONLINE.getCode(), message.getData());
                 messageListenerMulticaster.multicast(IMListenerType.PRIVATE_MESSAGE, result);
             }
         });
@@ -182,7 +182,7 @@ public class DefaultSender implements IMSender {
             return map;
         }
         for (Integer terminal : message.getReceiveTerminals()) {
-            message.getReceivedIds().forEach((receiveId) -> {
+            message.getReceiveIds().forEach((receiveId) -> {
                 String key = String.join(IMConstants.REDIS_KEY_SPLIT, IMConstants.IM_USER_SERVER_ID, receiveId.toString(), terminal.toString());
                 map.put(key, new IMUserInfo(receiveId, terminal));
             });

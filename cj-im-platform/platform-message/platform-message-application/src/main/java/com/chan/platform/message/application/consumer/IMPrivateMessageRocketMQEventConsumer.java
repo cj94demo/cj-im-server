@@ -1,4 +1,4 @@
-package com.chan.platform.message.application.consimer;
+package com.chan.platform.message.application.consumer;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSONObject;
@@ -58,7 +58,7 @@ public class IMPrivateMessageRocketMQEventConsumer implements RocketMQListener<S
         //封装发送消息数据模型
         IMPrivateMessage<PrivateMessageVO> sendMessage = new IMPrivateMessage<>();
         sendMessage.setSender(new IMUserInfo(privateMessageVO.getSendId(), imPrivateMessageTxEvent.getTerminal()));
-        sendMessage.setReceivedId(privateMessageVO.getRecvId());
+        sendMessage.setReceiveId(privateMessageVO.getRecvId());
         sendMessage.setSendToSelf(true);
         sendMessage.setData(privateMessageVO);
         imClient.sendPrivateMessage(sendMessage);

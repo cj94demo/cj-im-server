@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class IMPrivateMessage<T> {
     private IMUserInfo sender;
-    private Long receivedId;
+    private Long receiveId;
     private List<Integer> receiveTerminals = IMTerminalType.codes();
     private Boolean sendToSelf = true;
     private Boolean sendResult = true;
@@ -22,9 +22,9 @@ public class IMPrivateMessage<T> {
     public IMPrivateMessage() {
     }
 
-    public IMPrivateMessage(IMUserInfo sender, Long receivedId, List<Integer> receiveTerminals, Boolean sendToSelf, Boolean sendResult, T data) {
+    public IMPrivateMessage(IMUserInfo sender, Long receiveId, List<Integer> receiveTerminals, Boolean sendToSelf, Boolean sendResult, T data) {
         this.sender = sender;
-        this.receivedId = receivedId;
+        this.receiveId = receiveId;
         this.receiveTerminals = receiveTerminals;
         this.sendToSelf = sendToSelf;
         this.sendResult = sendResult;
@@ -39,12 +39,12 @@ public class IMPrivateMessage<T> {
         this.sender = sender;
     }
 
-    public Long getReceivedId() {
-        return receivedId;
+    public Long getReceiveId() {
+        return receiveId;
     }
 
-    public void setReceivedId(Long receivedId) {
-        this.receivedId = receivedId;
+    public void setReceiveId(Long receiveId) {
+        this.receiveId = receiveId;
     }
 
     public List<Integer> getReceiveTerminals() {

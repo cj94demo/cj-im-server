@@ -11,19 +11,13 @@ import io.swagger.annotations.ApiModelProperty;
  * Description: 群成员
  */
 @ApiModel("群成员信息VO")
-public class GroupMemberVO {
+public class GroupMemberVO extends GroupMemberSimpleVO {
 
     @ApiModelProperty("用户id")
     private Long userId;
 
-    @ApiModelProperty("群内显示名称")
-    private String aliasName;
-
     @ApiModelProperty("头像")
     private String headImage;
-
-    @ApiModelProperty("是否已退出")
-    private Boolean quit;
 
     @ApiModelProperty(value = "是否在线")
     private Boolean online;
@@ -35,10 +29,9 @@ public class GroupMemberVO {
     }
 
     public GroupMemberVO(Long userId, String aliasName, String headImage, Boolean quit, Boolean online, String remark) {
+        super(aliasName, quit);
         this.userId = userId;
-        this.aliasName = aliasName;
         this.headImage = headImage;
-        this.quit = quit;
         this.online = online;
         this.remark = remark;
     }
@@ -51,28 +44,12 @@ public class GroupMemberVO {
         this.userId = userId;
     }
 
-    public String getAliasName() {
-        return aliasName;
-    }
-
-    public void setAliasName(String aliasName) {
-        this.aliasName = aliasName;
-    }
-
     public String getHeadImage() {
         return headImage;
     }
 
     public void setHeadImage(String headImage) {
         this.headImage = headImage;
-    }
-
-    public Boolean getQuit() {
-        return quit;
-    }
-
-    public void setQuit(Boolean quit) {
-        this.quit = quit;
     }
 
     public Boolean getOnline() {
