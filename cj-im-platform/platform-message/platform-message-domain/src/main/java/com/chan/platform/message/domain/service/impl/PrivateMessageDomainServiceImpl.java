@@ -86,4 +86,9 @@ public class PrivateMessageDomainServiceImpl extends ServiceImpl<PrivateMessageR
     public List<PrivateMessageVO> loadMessageByUserIdAndFriendId(Long userId, Long friendId, long stIdx, long size) {
         return baseMapper.loadMessageByUserIdAndFriendId(userId, friendId, stIdx, size);
     }
+
+    @Override
+    public int readedMessage(Long sendId, Long recvId) {
+        return baseMapper.readedMessage(sendId, recvId);
+    }
 }

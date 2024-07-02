@@ -56,4 +56,6 @@ public interface GroupMessageRepository extends BaseMapper<GroupMessage> {
     List<GroupMessageVO> getHistoryMessage(@Param("groupId") Long groupId, @Param("sendTime") Date sendTime,
                                            @Param("status") Integer status, @Param("stIdx") long stIdx, @Param("size") long size);
 
+    @Select("select id from im_group_message where group_id = #{groupId} order by id desc limit 1")
+    Long getMaxMessageId(@Param("groupId") Long groupId);
 }

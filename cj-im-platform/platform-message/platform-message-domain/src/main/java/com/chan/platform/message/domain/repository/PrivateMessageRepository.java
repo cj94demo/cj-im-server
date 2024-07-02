@@ -65,4 +65,7 @@ public interface PrivateMessageRepository extends BaseMapper<PrivateMessage> {
             "and status  <![CDATA[ <> ]]> 2 order by id desc limit #{stIdx}, #{size} " +
             "</script>"})
     List<PrivateMessageVO> loadMessageByUserIdAndFriendId(@Param("userId") Long userId, @Param("friendId") Long friendId, @Param("stIdx") long stIdx, @Param("size") long size);
+
+    @Update("update im_private_message set status = 3 where send_id = #{sendId} and recv_id = #{recvId} and status = 1 ")
+    int readedMessage(@Param("sendId") Long sendId, @Param("recvId") Long recvId);
 }

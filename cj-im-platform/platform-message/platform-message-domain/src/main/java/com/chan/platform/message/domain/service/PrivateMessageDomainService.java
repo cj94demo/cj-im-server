@@ -50,4 +50,9 @@ public interface PrivateMessageDomainService extends IService<PrivateMessage> {
      * 拉取指定用户与好友的历史消息
      */
     List<PrivateMessageVO> loadMessageByUserIdAndFriendId(Long userId, Long friendId, long stIdx, long size);
+
+    /**
+     * 将消息更新为已读
+     */
+    int readedMessage(Long sendId, Long recvId);
 }

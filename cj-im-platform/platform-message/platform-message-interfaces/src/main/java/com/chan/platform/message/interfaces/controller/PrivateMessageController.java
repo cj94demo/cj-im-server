@@ -54,4 +54,11 @@ public class PrivateMessageController {
                                                                  @NotNull(message = "size不能为空") @RequestParam Long size) {
         return ResponseMessageFactory.getSuccessResponseMessage(privateMessageService.getHistoryMessage(friendId, page, size));
     }
+
+    @PutMapping("/readed")
+    @ApiOperation(value = "消息已读",notes="将会话中接收的消息状态置为已读")
+    public ResponseMessage<String> readedMessage(@RequestParam Long friendId){
+        privateMessageService.readedMessage(friendId);
+        return ResponseMessageFactory.getSuccessResponseMessage();
+    }
 }

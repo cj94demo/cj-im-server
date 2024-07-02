@@ -31,7 +31,7 @@ public interface PrivateMessageService {
      * 检测数据
      */
     boolean checkExists(Long messageId);
-    
+
     /**
      * 异步拉取单聊未读消息
      */
@@ -47,4 +47,5 @@ public interface PrivateMessageService {
      */
     List<PrivateMessageVO> getHistoryMessage(Long friendId, Long page, Long size);
 
+    void readedMessage(Long friendId);
 }

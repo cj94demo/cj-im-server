@@ -9,9 +9,11 @@ import com.chan.platform.common.model.contants.IMPlatformConstants;
 import com.chan.platform.common.model.dto.PrivateMessageDTO;
 import com.chan.platform.common.model.enums.HttpCode;
 import com.chan.platform.common.model.enums.MessageStatus;
+import com.chan.platform.common.model.enums.MessageType;
 import com.chan.platform.common.model.vo.PrivateMessageVO;
 import com.chan.platform.common.session.SessionContext;
 import com.chan.platform.common.session.UserSession;
+import com.chan.platform.common.threadpool.PrivateMessageThreadPoolUtils;
 import com.chan.platform.common.utils.DateTimeUtils;
 import com.chan.platform.dubbo.platform.friend.FriendDubboService;
 import com.chan.platform.message.application.service.PrivateMessageService;
@@ -155,5 +157,29 @@ public class PrivateMessageServiceImpl implements PrivateMessageService {
         }
         logger.info("拉取聊天记录，用户id:{},好友id:{}，数量:{}", userId, friendId, privateMessageList.size());
         return privateMessageList;
+    }
+
+    @Override
+    public void readedMessage(Long friendId) {
+        if (friendId == null) {
+            throw new IMException(HttpCode.PARAMS_ERROR);
+        }
+        UserSession userSession = SessionContext.getSession();
+        PrivateMessageVO msgInfo = new PrivateMessageVO();
+        msgInfo.setType(MessageType.READED.code());
+        msgInfo.setSendTime(new Date());
+        msgInfo.setSendId(userSession.getUserId());
+        msgInfo.setRecvId(friendId);
+        IMPrivateMessage<PrivateMessageVO> sendMessage = new IMPrivateMessage<>();
+        sendMessage.setSender(new IMUserInfo(userSession.getUserId(), userSession.getTerminal()));
+        sendMessage.setReceiveId(friendId);
+        sendMessage.setSendToSelf(true);
+        sendMessage.setData(msgInfo);
+        sendMessage.setSendResult(false);
+        imClient.sendPrivateMessage(sendMessage);
+        PrivateMessageThreadPoolUtils.execute(() -> {
+            privateMessageDomainService.readedMessage(friendId, userSession.getUserId());
+        });
+        logger.info("消息已读，接收方id:{},发送方id:{}", userSession.getUserId(), friendId);
     }
 }
