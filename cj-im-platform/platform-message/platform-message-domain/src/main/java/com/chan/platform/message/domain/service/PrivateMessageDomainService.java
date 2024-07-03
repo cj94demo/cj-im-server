@@ -54,5 +54,15 @@ public interface PrivateMessageDomainService extends IService<PrivateMessage> {
     /**
      * 将消息更新为已读
      */
-    int readedMessage(Long sendId, Long recvId);
+    int updateMessageStatus(Integer status, Long sendId, Long recvId);
+
+    /**
+     * 根据id修改状态
+     */
+    int updateMessageStatusById(Integer status, Long messageId);
+
+    /**
+     * 获取单聊消息
+     */
+    PrivateMessageVO getPrivateMessageById(Long messageId);
 }

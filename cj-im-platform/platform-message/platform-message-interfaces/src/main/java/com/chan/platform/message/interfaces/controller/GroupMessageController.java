@@ -56,9 +56,16 @@ public class GroupMessageController {
     }
 
     @PutMapping("/readed")
-    @ApiOperation(value = "消息已读",notes="将群聊中接收的消息状态置为已读")
-    public ResponseMessage<String> readedMessage(@RequestParam Long groupId){
+    @ApiOperation(value = "消息已读", notes = "将群聊中接收的消息状态置为已读")
+    public ResponseMessage<String> readedMessage(@RequestParam Long groupId) {
         groupMessageService.readedMessage(groupId);
+        return ResponseMessageFactory.getSuccessResponseMessage();
+    }
+
+    @DeleteMapping("/recall/{id}")
+    @ApiOperation(value = "撤回消息", notes = "撤回群聊消息")
+    public ResponseMessage<Long> recallMessage(@NotNull(message = "消息id不能为空") @PathVariable Long id) {
+        groupMessageService.recallMessage(id);
         return ResponseMessageFactory.getSuccessResponseMessage();
     }
 }

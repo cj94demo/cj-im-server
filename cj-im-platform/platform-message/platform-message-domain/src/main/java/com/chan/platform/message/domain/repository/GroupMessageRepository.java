@@ -5,6 +5,7 @@ import com.chan.platform.common.model.entity.GroupMessage;
 import com.chan.platform.common.model.vo.GroupMessageVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -58,4 +59,14 @@ public interface GroupMessageRepository extends BaseMapper<GroupMessage> {
 
     @Select("select id from im_group_message where group_id = #{groupId} order by id desc limit 1")
     Long getMaxMessageId(@Param("groupId") Long groupId);
+
+    @Select({"<script> " +
+            "select id as id, group_id as groupId, send_id as sendId, send_nick_name as sendNickName, " +
+            "at_user_ids as atUserIdsStr, content as content, type as type, status as status, send_time as sendTime " +
+            "from im_group_message where id = #{messageId} " +
+            "</script>"})
+    GroupMessageVO getGroupMessageByI(@Param("messageId") Long messageId);
+
+    @Update("update im_group_message set status = #{status} where id = #{messageId} ")
+    int updateStatus(@Param("status") Integer status, @Param("messageId") Long messageId);
 }

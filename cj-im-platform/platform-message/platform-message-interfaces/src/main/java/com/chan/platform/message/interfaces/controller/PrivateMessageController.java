@@ -56,9 +56,16 @@ public class PrivateMessageController {
     }
 
     @PutMapping("/readed")
-    @ApiOperation(value = "消息已读",notes="将会话中接收的消息状态置为已读")
-    public ResponseMessage<String> readedMessage(@RequestParam Long friendId){
+    @ApiOperation(value = "消息已读", notes = "将会话中接收的消息状态置为已读")
+    public ResponseMessage<String> readedMessage(@RequestParam Long friendId) {
         privateMessageService.readedMessage(friendId);
+        return ResponseMessageFactory.getSuccessResponseMessage();
+    }
+
+    @DeleteMapping("/recall/{id}")
+    @ApiOperation(value = "撤回消息", notes = "撤回私聊消息")
+    public ResponseMessage<Long> recallMessage(@NotNull(message = "消息id不能为空") @PathVariable Long id) {
+        privateMessageService.recallMessage(id);
         return ResponseMessageFactory.getSuccessResponseMessage();
     }
 }

@@ -47,5 +47,13 @@ public interface PrivateMessageService {
      */
     List<PrivateMessageVO> getHistoryMessage(Long friendId, Long page, Long size);
 
+    /**
+     * 消息已读,将整个会话的消息都置为已读状态
+     */
     void readedMessage(Long friendId);
+
+    /**
+     * 撤回消息
+     */
+    void recallMessage(Long id);
 }

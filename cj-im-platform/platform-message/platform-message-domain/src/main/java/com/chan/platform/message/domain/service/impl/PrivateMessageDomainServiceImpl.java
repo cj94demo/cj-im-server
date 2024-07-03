@@ -56,7 +56,7 @@ public class PrivateMessageDomainServiceImpl extends ServiceImpl<PrivateMessageR
 
     @Override
     public List<PrivateMessage> getAllUnreadPrivateMessage(Long userId, List<Long> friendIdList) {
-        if (userId == null || CollectionUtil.isEmpty(friendIdList)){
+        if (userId == null || CollectionUtil.isEmpty(friendIdList)) {
             throw new IMException(HttpCode.PARAMS_ERROR);
         }
         // 获取当前用户所有未读消息
@@ -88,7 +88,17 @@ public class PrivateMessageDomainServiceImpl extends ServiceImpl<PrivateMessageR
     }
 
     @Override
-    public int readedMessage(Long sendId, Long recvId) {
-        return baseMapper.readedMessage(sendId, recvId);
+    public int updateMessageStatus(Integer status, Long sendId, Long recvId) {
+        return baseMapper.updateMessageStatus(status, sendId, recvId);
+    }
+
+    @Override
+    public int updateMessageStatusById(Integer status, Long messageId) {
+        return baseMapper.updateMessageStatusById(status, messageId);
+    }
+
+    @Override
+    public PrivateMessageVO getPrivateMessageById(Long messageId) {
+        return baseMapper.getPrivateMessageById(messageId);
     }
 }

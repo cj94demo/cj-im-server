@@ -73,4 +73,14 @@ public class GroupMessageDomainServiceImpl extends ServiceImpl<GroupMessageRepos
     public Long getMaxMessageId(Long groupId) {
         return baseMapper.getMaxMessageId(groupId);
     }
+
+    @Override
+    public GroupMessageVO getGroupMessageById(Long messageId) {
+        return baseMapper.getGroupMessageByI(messageId);
+    }
+
+    @Override
+    public int updateStatus(Integer status, Long messageId) {
+        return baseMapper.updateStatus(status, messageId);
+    }
 }

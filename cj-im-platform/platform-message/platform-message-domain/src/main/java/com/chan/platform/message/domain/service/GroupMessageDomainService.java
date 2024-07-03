@@ -45,4 +45,14 @@ public interface GroupMessageDomainService extends IService<GroupMessage> {
      * 获取最大消息id
      */
     Long getMaxMessageId(Long groupId);
+
+    /**
+     * 查询指定的群聊消息
+     */
+    GroupMessageVO getGroupMessageById(Long messageId);
+
+    /**
+     * 更新群聊消息状态
+     */
+    int updateStatus(Integer status, Long messageId);
 }

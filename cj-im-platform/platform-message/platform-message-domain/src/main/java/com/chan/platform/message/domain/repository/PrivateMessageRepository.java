@@ -66,6 +66,15 @@ public interface PrivateMessageRepository extends BaseMapper<PrivateMessage> {
             "</script>"})
     List<PrivateMessageVO> loadMessageByUserIdAndFriendId(@Param("userId") Long userId, @Param("friendId") Long friendId, @Param("stIdx") long stIdx, @Param("size") long size);
 
-    @Update("update im_private_message set status = 3 where send_id = #{sendId} and recv_id = #{recvId} and status = 1 ")
-    int readedMessage(@Param("sendId") Long sendId, @Param("recvId") Long recvId);
+    @Update("update im_private_message set status = #{status} where send_id = #{sendId} and recv_id = #{recvId} and status = 1 ")
+    int updateMessageStatus(@Param("status") Integer status, @Param("sendId") Long sendId, @Param("recvId") Long recvId);
+
+    @Update("update im_private_message set status = #{status} where id = #{messageId}")
+    int updateMessageStatusById(@Param("status") Integer status, @Param("messageId") Long messageId);
+
+    @Select({"<script> " +
+            "select id as id, send_id as sendId, recv_id as recvId, content as content, type as type, status as status, send_time as sendTime " +
+            "from im_private_message where id = #{messageId} " +
+            "</script>"})
+    PrivateMessageVO getPrivateMessageById(@Param("messageId") Long messageId);
 }

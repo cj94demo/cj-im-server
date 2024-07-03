@@ -23,6 +23,7 @@ import com.chan.platform.message.domain.service.GroupMessageDomainService;
 import com.chan.sdk.core.client.IMClient;
 import com.chan.servercache.distribute.DistributedCacheService;
 import com.chan.servercache.id.SnowFlakeFactory;
+import com.chan.servercache.time.SystemClock;
 import com.chan.serverdomain.constant.IMConstants;
 import com.chan.serverdomain.model.IMGroupMessage;
 import com.chan.serverdomain.model.IMUserInfo;
@@ -205,7 +206,7 @@ public class GroupMessageServiceImpl implements GroupMessageService {
         UserSession session = SessionContext.getSession();
         // 取出最后的消息id
         Long maxMessageId = groupMessageDomainService.getMaxMessageId(groupId);
-        if (maxMessageId == null){
+        if (maxMessageId == null) {
             return;
         }
         // 推送消息给自己的其他终端
@@ -223,5 +224,51 @@ public class GroupMessageServiceImpl implements GroupMessageService {
         // 记录已读消息位置
         String key = StrUtil.join(IMConstants.REDIS_KEY_SPLIT, IMConstants.IM_GROUP_READED_POSITION, groupId, session.getUserId());
         distributedCacheService.set(key, String.valueOf(maxMessageId));
+    }
+
+    @Override
+    public void recallMessage(Long id) {
+        UserSession session = SessionContext.getSession();
+        GroupMessageVO msg = groupMessageDomainService.getGroupMessageById(id);
+        if (Objects.isNull(msg)) {
+            throw new IMException(HttpCode.PROGRAM_ERROR, "消息不存在");
+        }
+        if (!msg.getSendId().equals(session.getUserId())) {
+            throw new IMException(HttpCode.PROGRAM_ERROR, "这条消息不是由您发送,无法撤回");
+        }
+        if (SystemClock.millisClock().now() - msg.getSendTime().getTime() > IMConstants.ALLOW_RECALL_SECOND * 1000) {
+            throw new IMException(HttpCode.PROGRAM_ERROR, "消息已发送超过5分钟，无法撤回");
+        }
+        GroupMemberSimpleVO member = groupDubboService.getGroupMemberSimpleVO(new GroupParams(session.getUserId(), msg.getGroupId()));
+        if (Objects.isNull(member) || member.getQuit()) {
+            throw new IMException(HttpCode.PROGRAM_ERROR, "您已不在群里，无法撤回消息");
+        }
+        //更新消息状态
+        groupMessageDomainService.updateStatus(MessageStatus.RECALL.code(), id);
+        GroupMessageThreadPoolUtils.execute(() -> {
+            List<Long> userIds = groupDubboService.getUserIdsByGroupId(msg.getGroupId());
+            // 不用发给自己
+            userIds = userIds.stream().filter(uid -> !session.getUserId().equals(uid)).collect(Collectors.toList());
+            msg.setType(MessageType.RECALL.code());
+            String content = String.format("'%s'撤回了一条消息", member.getAliasName());
+            msg.setContent(content);
+            msg.setSendTime(new Date());
+
+            IMGroupMessage<GroupMessageVO> sendMessage = new IMGroupMessage<>();
+            sendMessage.setSender(new IMUserInfo(session.getUserId(), session.getTerminal()));
+            sendMessage.setReceiveIds(userIds);
+            sendMessage.setData(msg);
+            sendMessage.setSendResult(false);
+            sendMessage.setSendToSelf(false);
+            imClient.sendGroupMessage(sendMessage);
+
+            // 推给自己其他终端
+            msg.setContent("你撤回了一条消息");
+            sendMessage.setSendToSelf(true);
+            sendMessage.setReceiveIds(Collections.emptyList());
+            sendMessage.setReceiveTerminals(Collections.emptyList());
+            imClient.sendGroupMessage(sendMessage);
+            logger.info("撤回群聊消息，发送id:{},群聊id:{},内容:{}", session.getUserId(), msg.getGroupId(), msg.getContent());
+        });
     }
 }

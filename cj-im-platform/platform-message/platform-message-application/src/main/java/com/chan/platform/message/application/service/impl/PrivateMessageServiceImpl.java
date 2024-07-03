@@ -22,6 +22,8 @@ import com.chan.platform.message.domain.service.PrivateMessageDomainService;
 import com.chan.sdk.core.client.IMClient;
 import com.chan.servercache.id.SnowFlakeFactory;
 import com.chan.servercache.threadpool.ThreadPoolUtils;
+import com.chan.servercache.time.SystemClock;
+import com.chan.serverdomain.constant.IMConstants;
 import com.chan.serverdomain.model.IMPrivateMessage;
 import com.chan.serverdomain.model.IMUserInfo;
 import com.chan.servermq.MessageSenderService;
@@ -164,22 +166,64 @@ public class PrivateMessageServiceImpl implements PrivateMessageService {
         if (friendId == null) {
             throw new IMException(HttpCode.PARAMS_ERROR);
         }
-        UserSession userSession = SessionContext.getSession();
+        UserSession session = SessionContext.getSession();
+        // 推送消息
         PrivateMessageVO msgInfo = new PrivateMessageVO();
         msgInfo.setType(MessageType.READED.code());
         msgInfo.setSendTime(new Date());
-        msgInfo.setSendId(userSession.getUserId());
+        msgInfo.setSendId(session.getUserId());
         msgInfo.setRecvId(friendId);
         IMPrivateMessage<PrivateMessageVO> sendMessage = new IMPrivateMessage<>();
-        sendMessage.setSender(new IMUserInfo(userSession.getUserId(), userSession.getTerminal()));
+        sendMessage.setSender(new IMUserInfo(session.getUserId(), session.getTerminal()));
         sendMessage.setReceiveId(friendId);
         sendMessage.setSendToSelf(true);
         sendMessage.setData(msgInfo);
         sendMessage.setSendResult(false);
         imClient.sendPrivateMessage(sendMessage);
         PrivateMessageThreadPoolUtils.execute(() -> {
-            privateMessageDomainService.readedMessage(friendId, userSession.getUserId());
+            privateMessageDomainService.updateMessageStatus(MessageStatus.READED.code(), friendId, session.getUserId());
         });
-        logger.info("消息已读，接收方id:{},发送方id:{}", userSession.getUserId(), friendId);
+        logger.info("消息已读，接收方id:{},发送方id:{}", session.getUserId(), friendId);
+    }
+
+    @Override
+    public void recallMessage(Long id) {
+        UserSession session = SessionContext.getSession();
+        if (id == null) {
+            throw new IMException(HttpCode.PARAMS_ERROR);
+        }
+        PrivateMessageVO privateMessage = privateMessageDomainService.getPrivateMessageById(id);
+        if (privateMessage == null) {
+            throw new IMException(HttpCode.PROGRAM_ERROR, "消息不存在");
+        }
+        if (!privateMessage.getSendId().equals(session.getUserId())) {
+            throw new IMException(HttpCode.PROGRAM_ERROR, "这条消息不是由您发送,无法撤回");
+        }
+        if (SystemClock.millisClock().now() - privateMessage.getSendTime().getTime() > IMConstants.ALLOW_RECALL_SECOND * 1000) {
+            throw new IMException(HttpCode.PROGRAM_ERROR, "消息已发送超过5分钟，无法撤回");
+        }
+        //更新消息状态为已撤回
+        privateMessageDomainService.updateMessageStatusById(MessageStatus.RECALL.code(), id);
+        PrivateMessageThreadPoolUtils.execute(() -> {
+            // 推送消息
+            privateMessage.setType(MessageType.RECALL.code());
+            privateMessage.setSendTime(new Date());
+            privateMessage.setContent("对方撤回了一条消息");
+
+            IMPrivateMessage<PrivateMessageVO> sendMessage = new IMPrivateMessage<>();
+            sendMessage.setSender(new IMUserInfo(session.getUserId(), session.getTerminal()));
+            sendMessage.setReceiveId(privateMessage.getRecvId());
+            sendMessage.setSendToSelf(false);
+            sendMessage.setData(privateMessage);
+            sendMessage.setSendResult(false);
+            imClient.sendPrivateMessage(sendMessage);
+
+            // 推给自己其他终端
+            privateMessage.setContent("你撤回了一条消息");
+            sendMessage.setSendToSelf(true);
+            sendMessage.setReceiveTerminals(Collections.emptyList());
+            imClient.sendPrivateMessage(sendMessage);
+            logger.info("撤回私聊消息，发送id:{},接收id:{}，内容:{}", privateMessage.getSendId(), privateMessage.getRecvId(), privateMessage.getContent());
+        });
     }
 }

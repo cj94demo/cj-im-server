@@ -50,4 +50,9 @@ public interface GroupMessageService {
      * 消息已读,同步其他终端，清空未读数量
      */
     void readedMessage(Long groupId);
+
+    /**
+     * 撤回消息
+     */
+    void recallMessage(Long id);
 }
