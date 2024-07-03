@@ -20,7 +20,7 @@ public enum IMSendCode {
         this.desc = desc;
     }
 
-    public int getCode() {
+    public Integer getCode() {
         return this.code;
     }
 }
